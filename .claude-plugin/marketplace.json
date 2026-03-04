@@ -1,6 +1,6 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
-  "name": "basecamp",
+  "name": "37signals",
   "owner": {
     "name": "37signals",
     "email": "support@37signals.com"
