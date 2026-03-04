@@ -13,7 +13,7 @@ claude plugin install basecamp
 
 | Plugin | Description |
 |--------|-------------|
-| [basecamp](https://github.com/basecamp/basecamp-cli/.claude-plugin) | Basecamp integration — todos, cards, messages, files, schedule, check-ins, timeline, recordings, templates, webhooks, subscriptions, lineup, and campfire. |
+| [basecamp](https://github.com/basecamp/basecamp-cli/tree/main/.claude-plugin) | Basecamp integration — todos, cards, messages, files, schedule, check-ins, timeline, recordings, templates, webhooks, subscriptions, lineup, and campfire. |
 
 ## Requires
 
