@@ -1,27 +1,24 @@
-# Claude Code Plugins for Basecamp
+# 37signals Claude Code Plugins
 
 [Claude Code plugin](https://docs.anthropic.com/en/docs/claude-code/plugins)
-marketplace for Basecamp — skills, hooks, and commands that let Claude interact
-with your Basecamp workspace.
+marketplace for Basecamp, HEY, and Fizzy — skills, hooks, and commands that
+let Claude interact with your 37signals products.
 
 ```
 claude plugin marketplace add basecamp/claude-plugins
-claude plugin install basecamp
+claude plugin install <plugin-name>
 ```
 
 ## Available plugins
 
-| Plugin | Description |
-|--------|-------------|
-| [basecamp](https://github.com/basecamp/basecamp-cli/tree/main/.claude-plugin) | Basecamp integration — todos, cards, messages, files, schedule, check-ins, timeline, recordings, templates, webhooks, subscriptions, lineup, and campfire. |
+| Plugin | Product | Description |
+|--------|---------|-------------|
+| [basecamp](https://github.com/basecamp/basecamp-cli/tree/main/.claude-plugin) | Basecamp | Todos, cards, messages, files, schedule, check-ins, timeline, recordings, templates, webhooks, subscriptions, lineup, and campfire. |
 
-## Requires
-
-- [Basecamp CLI](https://github.com/basecamp/basecamp-cli) (`brew install basecamp/tap/basecamp` or see [install instructions](https://github.com/basecamp/basecamp-cli#installation))
-- An authenticated Basecamp account (`basecamp login`)
+HEY and Fizzy plugins coming soon.
 
 ## About
 
 This repo is a thin marketplace index. Plugin source code (skills, hooks,
-commands) lives in [basecamp/basecamp-cli](https://github.com/basecamp/basecamp-cli).
-To contribute, open issues or PRs there.
+commands) lives in each product's CLI repo. To contribute, open issues or PRs
+there.
