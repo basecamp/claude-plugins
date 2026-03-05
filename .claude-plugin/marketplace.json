@@ -16,6 +16,15 @@
       "category": "productivity"
     },
     {
+      "name": "hey",
+      "description": "HEY integration for Claude Code. Read email, manage todos, track time.",
+      "source": {
+        "source": "github",
+        "repo": "basecamp/hey-cli"
+      },
+      "category": "productivity"
+    },
+    {
       "name": "fizzy",
       "description": "Fizzy integration for Claude Code. Manage boards, cards, track work, and link code to projects.",
       "source": {
