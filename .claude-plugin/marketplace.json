@@ -32,6 +32,36 @@
         "repo": "basecamp/fizzy-cli"
       },
       "category": "productivity"
+    },
+    {
+      "name": "dev",
+      "description": "AI-assisted development workflow — PR reviews, plan-implement loops, and expert consultation.",
+      "source": {
+        "source": "git-subdir",
+        "url": "basecamp/house-skills",
+        "path": "plugins/dev"
+      },
+      "category": "development"
+    },
+    {
+      "name": "security",
+      "description": "Security hardening skills — GitHub Actions pipeline hardening and CI security.",
+      "source": {
+        "source": "git-subdir",
+        "url": "basecamp/house-skills",
+        "path": "plugins/security"
+      },
+      "category": "security"
+    },
+    {
+      "name": "ai",
+      "description": "AI skill development — crafting agent skills and writing install documentation for autonomous execution.",
+      "source": {
+        "source": "git-subdir",
+        "url": "basecamp/house-skills",
+        "path": "plugins/ai"
+      },
+      "category": "development"
     }
   ]
 }
