@@ -62,6 +62,16 @@
         "path": "plugins/ai"
       },
       "category": "development"
+    },
+    {
+      "name": "recap",
+      "description": "Activity digests — pluggable source fetchers, progressive timescale synthesis, audience-aware composition.",
+      "source": {
+        "source": "git-subdir",
+        "url": "basecamp/house-skills",
+        "path": "plugins/recap"
+      },
+      "category": "productivity"
     }
   ]
 }
