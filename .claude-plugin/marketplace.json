@@ -8,10 +8,10 @@
   "plugins": [
     {
       "name": "basecamp",
-      "description": "Basecamp integration for Claude Code. Create todos, track work, link code to projects.",
+      "description": "Basecamp integration for Claude Code and Codex. Create todos, track work, link code to projects.",
       "source": {
-        "source": "github",
-        "repo": "basecamp/basecamp-cli"
+        "source": "url",
+        "url": "https://github.com/basecamp/basecamp-cli.git"
       },
       "category": "productivity"
     },
