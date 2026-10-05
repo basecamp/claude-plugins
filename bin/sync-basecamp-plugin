@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+# Mirror the hosted Basecamp plugin from basecamp-mcp-server, its source of truth.
+#
+#   bin/sync-basecamp-plugin <basecamp-mcp-server checkout>          copy, validate, print the source commit
+#   bin/sync-basecamp-plugin --check <basecamp-mcp-server checkout>  exit 1 if plugins/basecamp differs
+#
+# The source is plugins/claude/basecamp in that checkout. Sync from a clean
+# checkout of its main branch, and put the printed commit in the commit message.
+# Never edit plugins/basecamp here: change it upstream and sync.
+set -euo pipefail
+
+check=0
+if [[ "${1:-}" == "--check" ]]; then
+  check=1
+  shift
+fi
+
+if [[ $# -ne 1 ]]; then
+  sed -n '4,5p' "$0" | sed 's/^# *//' >&2
+  exit 2
+fi
+
+root="$(cd "$(dirname "$0")/.." && pwd)"
+upstream="$(cd "$1" && pwd)"
+src="$upstream/plugins/claude/basecamp"
+dest="$root/plugins/basecamp"
+
+if [[ ! -f "$src/.claude-plugin/plugin.json" ]]; then
+  echo "error: $src is not the Basecamp plugin (no .claude-plugin/plugin.json)" >&2
+  exit 2
+fi
+
+if [[ $check -eq 1 ]]; then
+  if diff -r "$src" "$dest"; then
+    echo "plugins/basecamp matches $(git -C "$upstream" rev-parse --short HEAD)"
+  else
+    echo "plugins/basecamp has drifted from basecamp-mcp-server; run bin/sync-basecamp-plugin" >&2
+    exit 1
+  fi
+  exit 0
+fi
+
+if [[ -n "$(git -C "$upstream" status --porcelain -- plugins/claude/basecamp)" ]]; then
+  echo "error: uncommitted changes under $src; sync from a committed source" >&2
+  exit 2
+fi
+
+rm -rf "$dest"
+mkdir -p "$dest"
+cp -R "$src/." "$dest/"
+find "$dest" -name .DS_Store -delete
+
+if command -v claude >/dev/null 2>&1; then
+  claude plugin validate "$dest"
+else
+  echo "claude not installed; skipping claude plugin validate" >&2
+fi
+
+echo
+echo "Mirrored from basecamp/basecamp-mcp-server@$(git -C "$upstream" rev-parse HEAD)"
