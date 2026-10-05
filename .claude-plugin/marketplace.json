@@ -7,16 +7,6 @@
   },
   "plugins": [
     {
-      "name": "basecamp",
-      "description": "Basecamp for Claude, through Basecamp's hosted connector. Works in chat, Cowork, and Claude Code with no CLI to install: catch up on projects, recap your week, triage Hey!, plan work, draft check-ins.",
-      "source": {
-        "source": "git-subdir",
-        "url": "https://github.com/basecamp/claude-plugins.git",
-        "path": "plugins/basecamp"
-      },
-      "category": "productivity"
-    },
-    {
       "name": "basecamp-cli",
       "description": "CLI-based Basecamp for Claude Code and Codex, driven by the basecamp command. Create todos, track work, link code to projects.",
       "source": {
