@@ -24,7 +24,7 @@ The CLI plugin used to be `basecamp@37signals`. It's now
 `basecamp-cli@37signals`, with the same source, skills and hooks. The
 `basecamp` command itself keeps its name.
 
-For a deprecation window (proposed: 30 days), `basecamp` stays in this
+For a deprecation window (7 days from the CLI release that ships the rename), `basecamp` stays in this
 marketplace as an alias with the same source as `basecamp-cli`. Existing
 installs keep loading and updating. From the basecamp-cli release with the
 rename on, a plugin installed under the old name says once that it has a

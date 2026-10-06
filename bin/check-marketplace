@@ -14,7 +14,7 @@
 # and setup would uninstall it.
 #
 # Rule 2 changes only in its own PR, once both hold:
-#   - the deprecation window has passed (proposed: 30 days from the rename), and
+#   - the deprecation window has passed (7 days from the CLI release that ships the rename), and
 #   - a basecamp-cli release has shipped that no longer treats basecamp@37signals
 #     as the old CLI plugin.
 # That PR first removes the alias. Pointing "basecamp" at the hosted plugin is a
