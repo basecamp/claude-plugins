@@ -8,7 +8,16 @@
   "plugins": [
     {
       "name": "basecamp",
-      "description": "Basecamp integration for Claude Code and Codex. Create todos, track work, link code to projects.",
+      "description": "Deprecated alias for basecamp-cli, kept so existing installs keep working. Install basecamp-cli instead, or run `basecamp setup` to switch.",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/basecamp/basecamp-cli.git"
+      },
+      "category": "productivity"
+    },
+    {
+      "name": "basecamp-cli",
+      "description": "CLI-based Basecamp for Claude Code and Codex, driven by the basecamp command. Create todos, track work, link code to projects.",
       "source": {
         "source": "url",
         "url": "https://github.com/basecamp/basecamp-cli.git"

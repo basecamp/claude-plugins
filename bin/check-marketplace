@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+# Checks .claude-plugin/marketplace.json. Run by CI on every push and pull request.
+#
+# 1. It parses, and every plugin name is unique.
+# 2. A plugin named "basecamp", if listed, has exactly the same source as
+#    "basecamp-cli": a deprecated alias for it.
+#
+# "basecamp@37signals" used to be the CLI plugin, now "basecamp-cli". During the
+# deprecation window the alias keeps existing installs loading, and
+# basecamp-cli's `basecamp setup` moves them to basecamp-cli by key: it treats an
+# installed basecamp@37signals as the CLI plugin (basecamp/basecamp-cli#840).
+# Pointing "basecamp" anywhere else, such as the hosted plugin in
+# plugins/basecamp, would swap a different plugin in under existing installs,
+# and setup would uninstall it.
+#
+# Rule 2 changes only in its own PR, once both hold:
+#   - the deprecation window has passed (7 days from the CLI release that ships the rename), and
+#   - a basecamp-cli release has shipped that no longer treats basecamp@37signals
+#     as the old CLI plugin.
+# That PR first removes the alias. Pointing "basecamp" at the hosted plugin is a
+# later decision still.
+set -euo pipefail
+
+root="$(cd "$(dirname "$0")/.." && pwd)"
+marketplace="$root/.claude-plugin/marketplace.json"
+
+python3 - "$marketplace" <<'PY'
+import collections, json, sys
+
+with open(sys.argv[1]) as f:
+    plugins = json.load(f)["plugins"]
+names = [p["name"] for p in plugins]
+
+failed = False
+for name, count in collections.Counter(names).items():
+    if count > 1:
+        print(f"error: plugin name {name!r} is listed {count} times", file=sys.stderr)
+        failed = True
+
+by_name = {p["name"]: p for p in plugins}
+alias = by_name.get("basecamp")
+if alias is not None:
+    target = by_name.get("basecamp-cli")
+    if target is None or alias.get("source") != target.get("source"):
+        print(
+            "error: the 'basecamp' entry must be a deprecated alias with exactly the same source as\n"
+            "'basecamp-cli' until the deprecation window ends and a basecamp-cli release stops\n"
+            "treating basecamp@37signals as the old CLI plugin. See bin/check-marketplace.",
+            file=sys.stderr,
+        )
+        failed = True
+
+sys.exit(1 if failed else 0)
+PY
+echo "marketplace.json OK"
