@@ -75,3 +75,12 @@ one only when the person asked for exactly that deletion. The
 Link to what you mention: every item carries an `app_url`. Name the project
 and, when the person has several accounts, the account. Say plainly when
 something could not be found or read rather than filling the gap.
+
+**Say what your reads covered.** Every summary, recap, brief or triage
+states what its reads did and didn't cover, and never claims more than was
+fetched. Reads stop short in known ways: a result marked truncated, a
+timeline that ends at its latest 100 events, a window capped at 14 days, an
+undated list, a thread whose comments you didn't open, records that include
+other people's work. When one applies, say so in the reply ("Done covers
+to-dos only", "the timeline reaches back to Tuesday") instead of presenting
+the section as complete.

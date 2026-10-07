@@ -10,16 +10,22 @@ given).
 
 1. `get_catchup` with `days` for announcements, to-dos assigned to and
    completed by the person, their overdue to-dos, and activity by project.
-2. `get_my_completed_assignments` for what they finished, and
-   `get_my_assignments` for what's still on their plate.
+2. `get_my_assignments` for what's still on their plate. For what they
+   finished, use only the catch-up's completed to-dos: they're the person's
+   own and scoped to the window. Project timelines include teammates'
+   completions, and `get_my_completed_assignments` has no dates. The
+   catch-up's to-dos carry no `app_url`: `get_todo` on each one you list
+   gives the link.
 3. `get_upcoming_schedule` with `start_date` today and `end_date` a week out
-   for what's next.
+   for what's next. It covers the whole account, so keep only entries and
+   recurring occurrences whose participants include the person (`get_me`
+   names them).
 4. For the two or three busiest projects in the catch-up, `get_project_timeline`
    to say what actually moved, not just how much.
 
 Reply with:
 
-- **Done:** what they finished, grouped by project.
+- **Done:** what they finished in the window, grouped by project.
 - **Moved:** the notable changes in their projects, a line each.
 - **Still open:** overdue first, then what's due next week.
 - **Coming up:** schedule entries next week.

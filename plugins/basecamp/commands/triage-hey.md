@@ -4,8 +4,9 @@ description: Triage your Basecamp Hey! menu — sort what needs a reply from wha
 
 # Triage my Hey!
 
-1. `get_my_notifications`: unreads first. Use `page` for more if the first
-   page is all unread.
+1. `get_my_notifications`: unreads first. Unreads come back in one list,
+   capped at 100; `page` pages only the read items, so it can't fetch more
+   unreads. If the list is full, say there may be more.
 2. Open anything you can't judge from its excerpt with `get_by_url` on its
    `app_url`.
 3. Sort each unread into one of three groups:

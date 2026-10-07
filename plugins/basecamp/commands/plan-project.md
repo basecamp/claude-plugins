@@ -24,7 +24,10 @@ What to plan, and where: $ARGUMENTS
      `due_on` (`YYYY-MM-DD`).
    - Cards: `create_card` in the right column (`column_id`), then
      `update_card` to set `assignee_ids`.
-   Leave `notify` off unless they want people notified now.
+   For to-dos, leave `notify` off unless they want people notified now.
+   Cards can't do that: `create_card` takes no assignees, so its `notify`
+   reaches no one, and `update_card` has no `notify`. If they want card
+   owners told, say so and offer to post or comment instead.
 
 Reply with what was created, linked, and anything you skipped and why. The
 `posting-and-mentions` topic of `get_basecamp_guide` says who each post

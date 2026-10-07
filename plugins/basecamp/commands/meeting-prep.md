@@ -11,13 +11,16 @@ The project and the meeting: $ARGUMENTS
    `search`. If none was named, ask.
 2. **Read the state of things.**
    - `get_project_timeline` for what happened since the last meeting (a
-     week, unless they say).
+     week, unless they say). It returns the latest 100 events and can't
+     page; if they don't reach back that far, say where the brief starts.
    - `get_project` for its dock, then `list_messages` on its message board,
      and `get_by_url` on the threads that matter.
    - Open work: `list_todolists` and `list_todos`, or `get_card_table`, for
      what's overdue, unassigned, or stuck.
-   - `list_schedule_entries` on its schedule (`schedule_id` from the dock)
-     for dates coming up.
+   - `get_upcoming_schedule` from today to two weeks out for dates coming
+     up, keeping this project's entries and recurring occurrences.
+     `list_schedule_entries` lists a recurring series once, at its first
+     date, so it misses the next meeting of a series.
    - `search` for the meeting's topic, to find the docs and threads behind
      it.
 
