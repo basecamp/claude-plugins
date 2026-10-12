@@ -1,0 +1,17 @@
+{
+  "name": "37signals",
+  "owner": {
+    "name": "37signals",
+    "email": "support@37signals.com"
+  },
+  "metadata": {
+    "description": "37signals plugins for Cursor: Basecamp through its official hosted MCP server"
+  },
+  "plugins": [
+    {
+      "name": "basecamp",
+      "source": "plugins/cursor/basecamp",
+      "description": "Find, read, and update projects, to-dos, cards, messages, docs, and schedules."
+    }
+  ]
+}

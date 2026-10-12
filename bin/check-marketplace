@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Checks .claude-plugin/marketplace.json. Run by CI on every push and pull request.
+# Checks .claude-plugin/marketplace.json and .cursor-plugin/marketplace.json. Run by CI on every push and pull request.
 #
 # 1. It parses, and every plugin name is unique.
 # 2. A plugin named "basecamp", if listed, has exactly the same source as
@@ -53,3 +53,32 @@ if alias is not None:
 sys.exit(1 if failed else 0)
 PY
 echo "marketplace.json OK"
+
+# Cursor: .cursor-plugin/marketplace.json parses, names are unique, and each
+# source is a folder here whose .cursor-plugin/plugin.json has the same name.
+python3 - "$root" <<'PY'
+import collections, json, os, sys
+
+root = sys.argv[1]
+with open(os.path.join(root, ".cursor-plugin", "marketplace.json")) as f:
+    plugins = json.load(f)["plugins"]
+
+failed = False
+for name, count in collections.Counter(p["name"] for p in plugins).items():
+    if count > 1:
+        print(f"error: Cursor plugin name {name!r} is listed {count} times", file=sys.stderr)
+        failed = True
+for p in plugins:
+    manifest = os.path.join(root, p["source"], ".cursor-plugin", "plugin.json")
+    if not os.path.isfile(manifest):
+        print(f"error: Cursor plugin {p['name']!r}: no {manifest}", file=sys.stderr)
+        failed = True
+        continue
+    with open(manifest) as f:
+        if json.load(f)["name"] != p["name"]:
+            print(f"error: Cursor plugin {p['name']!r}: plugin.json name differs", file=sys.stderr)
+            failed = True
+
+sys.exit(1 if failed else 0)
+PY
+echo "Cursor marketplace.json OK"

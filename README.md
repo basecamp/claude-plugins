@@ -1,4 +1,4 @@
-# 37signals Claude Code Plugins
+# 37signals agent plugins
 
 [Claude Code plugin](https://docs.anthropic.com/en/docs/claude-code/plugins)
 marketplace for Basecamp, HEY, and Fizzy — skills, hooks, and commands that
@@ -6,9 +6,21 @@ let Claude interact with your 37signals products. We also share our internal
 development skills as plugins.
 
 ```
-claude plugin marketplace add basecamp/claude-plugins
+claude plugin marketplace add basecamp/plugins
 claude plugin install <plugin-name>
 ```
+
+This repository was `basecamp/claude-plugins` until 2026-10-12. GitHub
+redirects the old name, and the marketplace is still `37signals`, so existing
+installs keep working.
+
+## Cursor
+
+`.cursor-plugin/marketplace.json` lists the Basecamp plugin for Cursor,
+`plugins/cursor/basecamp`: Basecamp's official hosted MCP server at
+`https://mcp.basecamp.com/mcp`, with no API key to configure. Cursor's
+Marketplace also feeds Grok Bot. Install it from **Cursor Settings → Plugins**
+once it's listed.
 
 ## Available plugins
 
@@ -67,9 +79,10 @@ This repo is mostly a thin marketplace index. Plugin source code (skills,
 hooks, commands) lives in each product's own repo. To contribute, open issues
 or PRs there.
 
-The one plugin with files here, `plugins/basecamp` (the hosted plugin, not
-listed in the marketplace), is a mirror. Its source
-of truth is `plugins/claude/basecamp` in the (private) Basecamp connector
+The plugins with files here, `plugins/basecamp` (the hosted plugin for
+Claude, not listed in the Claude marketplace) and `plugins/cursor/basecamp`
+(the same server for Cursor), are mirrors. Their source of truth is
+`plugins/claude/basecamp` and `plugins/cursor/basecamp` in the (private) Basecamp connector
 repository, which tests it against the tools the connector actually serves.
 Don't edit the mirror; change it upstream, then run
 `bin/sync-basecamp-plugin <checkout>` to copy and validate it, and commit
