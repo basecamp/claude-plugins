@@ -1,12 +1,14 @@
 #!/usr/bin/env bash
-# Mirror the hosted Basecamp plugin from basecamp-mcp-server, its source of truth.
+# Mirror the hosted Basecamp plugins (Claude and Cursor) from basecamp-mcp-server,
+# their source of truth.
 #
 #   bin/sync-basecamp-plugin <basecamp-mcp-server checkout>          copy, validate, print the source commit
 #   bin/sync-basecamp-plugin --check <basecamp-mcp-server checkout>  exit 1 if plugins/basecamp differs
 #
-# The source is plugins/claude/basecamp in that checkout. Sync from a clean
-# checkout of its main branch, and put the printed commit in the commit message.
-# Never edit plugins/basecamp here: change it upstream and sync.
+# The sources are plugins/claude/basecamp and plugins/cursor/basecamp in that
+# checkout, mirrored to plugins/basecamp and plugins/cursor/basecamp. Sync from a
+# clean checkout of its main branch, and put the printed commit in the commit
+# message. Never edit the mirrors here: change them upstream and sync.
 set -euo pipefail
 
 check=0
@@ -22,36 +24,52 @@ fi
 
 root="$(cd "$(dirname "$0")/.." && pwd)"
 upstream="$(cd "$1" && pwd)"
-src="$upstream/plugins/claude/basecamp"
-dest="$root/plugins/basecamp"
 
-if [[ ! -f "$src/.claude-plugin/plugin.json" ]]; then
-  echo "error: $src is not the Basecamp plugin (no .claude-plugin/plugin.json)" >&2
-  exit 2
-fi
+# source (in basecamp-mcp-server) → mirror (here), and the manifest that proves it
+pairs=(
+  "plugins/claude/basecamp:plugins/basecamp:.claude-plugin/plugin.json"
+  "plugins/cursor/basecamp:plugins/cursor/basecamp:.cursor-plugin/plugin.json"
+)
+
+for pair in "${pairs[@]}"; do
+  IFS=: read -r rel dest_rel manifest <<<"$pair"
+  if [[ ! -f "$upstream/$rel/$manifest" ]]; then
+    echo "error: $upstream/$rel is not a Basecamp plugin (no $manifest)" >&2
+    exit 2
+  fi
+done
 
 if [[ $check -eq 1 ]]; then
-  if diff -r "$src" "$dest"; then
-    echo "plugins/basecamp matches $(git -C "$upstream" rev-parse --short HEAD)"
-  else
-    echo "plugins/basecamp has drifted from basecamp-mcp-server; run bin/sync-basecamp-plugin" >&2
-    exit 1
+  drifted=0
+  for pair in "${pairs[@]}"; do
+    IFS=: read -r rel dest_rel manifest <<<"$pair"
+    if ! diff -r "$upstream/$rel" "$root/$dest_rel"; then
+      echo "$dest_rel has drifted from basecamp-mcp-server; run bin/sync-basecamp-plugin" >&2
+      drifted=1
+    fi
+  done
+  [[ $drifted -eq 0 ]] && echo "mirrors match $(git -C "$upstream" rev-parse --short HEAD)"
+  exit $drifted
+fi
+
+for pair in "${pairs[@]}"; do
+  IFS=: read -r rel dest_rel manifest <<<"$pair"
+  if [[ -n "$(git -C "$upstream" status --porcelain -- "$rel")" ]]; then
+    echo "error: uncommitted changes under $upstream/$rel; sync from a committed source" >&2
+    exit 2
   fi
-  exit 0
-fi
+done
 
-if [[ -n "$(git -C "$upstream" status --porcelain -- plugins/claude/basecamp)" ]]; then
-  echo "error: uncommitted changes under $src; sync from a committed source" >&2
-  exit 2
-fi
-
-rm -rf "$dest"
-mkdir -p "$dest"
-cp -R "$src/." "$dest/"
-find "$dest" -name .DS_Store -delete
+for pair in "${pairs[@]}"; do
+  IFS=: read -r rel dest_rel manifest <<<"$pair"
+  rm -rf "${root:?}/$dest_rel"
+  mkdir -p "$root/$dest_rel"
+  cp -R "$upstream/$rel/." "$root/$dest_rel/"
+  find "$root/$dest_rel" -name .DS_Store -delete
+done
 
 if command -v claude >/dev/null 2>&1; then
-  claude plugin validate "$dest"
+  claude plugin validate "$root/plugins/basecamp"
 else
   echo "claude not installed; skipping claude plugin validate" >&2
 fi

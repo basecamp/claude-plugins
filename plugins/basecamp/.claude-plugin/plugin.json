@@ -9,7 +9,7 @@
     "url": "https://basecamp.com"
   },
   "homepage": "https://basecamp.com/ai",
-  "repository": "https://github.com/basecamp/claude-plugins",
+  "repository": "https://github.com/basecamp/plugins",
   "license": "MIT",
   "icon": "./assets/logo.png",
   "documentationUrl": "https://basecamp.com/ai",
