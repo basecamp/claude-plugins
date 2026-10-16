@@ -32,13 +32,13 @@ Auth is OAuth 2.1 with Dynamic Client Registration and PKCE. Cursor registers it
 
 | Category | Capabilities |
 | --- | --- |
-| My work | Assignments, Hey! notifications, schedule, and what's new across projects |
+| My work | Assignments, notifications, schedule, and what's new across projects |
 | To-dos and cards | Create, assign, complete, and move to-dos and Card Table cards |
 | Messages and docs | Read and post messages, comments, and documents |
 | Schedules, check-ins, and chat | Add schedule entries, read and answer check-ins, and read and post in Campfire |
 | Search | `search` across the account and `get_by_url` for any Basecamp link |
 
-Every Basecamp operation is its own tool, annotated read-only, additive (creates) or destructive. The hosted runtime is the source of truth for tool names and schemas.
+Every Basecamp operation is its own tool, annotated read-only, additive (most creates) or destructive. The hosted runtime is the source of truth for tool names and schemas.
 
 ## Notes
 

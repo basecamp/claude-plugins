@@ -1,8 +1,8 @@
 {
   "name": "basecamp",
   "displayName": "Basecamp",
-  "version": "0.2.0",
-  "description": "Work in your Basecamp projects from Claude: catch up on a project, recap your week, triage your Hey! menu, plan work into to-dos and cards, draft a check-in answer, and prep for a meeting, through Basecamp's own hosted connector.",
+  "version": "0.2.1",
+  "description": "Work in your Basecamp projects from Claude: catch up on a project, recap your week, triage your notifications, plan work into to-dos and cards, draft a check-in answer, and prep for a meeting, through Basecamp's own hosted connector.",
   "author": {
     "name": "37signals",
     "email": "support@37signals.com",
