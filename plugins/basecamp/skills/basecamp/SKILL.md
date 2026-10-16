@@ -30,7 +30,7 @@ covers that you have not done in this conversation.
   the full record.
 - **Mine?** `get_my_assignments` (priorities first), `get_my_day` (today's
   schedule and due to-dos), `get_overdue_todos`, `get_upcoming_schedule`,
-  `get_my_notifications` (the Hey! menu: unreads first), `get_catchup`
+  `get_my_notifications` (unreads first; the Hey! menu in Basecamp 4), `get_catchup`
   (what happened while away).
 - **In a project?** `list_projects` or `search` to find it, then
   `get_project` for its dock: each dock tool's ID is what that tool's

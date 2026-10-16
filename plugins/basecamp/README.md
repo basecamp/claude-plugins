@@ -27,7 +27,7 @@ Claude picks the one that fits.
 | --- | --- |
 | `/basecamp:catch-up <project>` | What changed on a project, what was decided, what's open, and what needs you |
 | `/basecamp:weekly-recap` | What you finished, what moved across your projects, and what's next week |
-| `/basecamp:triage-hey` | Sorts your Hey! menu into needs-you, worth-knowing, and nothing-to-do, with draft replies |
+| `/basecamp:triage-hey` | Sorts your notifications into needs-you, worth-knowing, and nothing-to-do, with draft replies |
 | `/basecamp:plan-project <project> <goal>` | Turns a goal or notes into to-do lists or cards with owners and dates |
 | `/basecamp:draft-check-in [question]` | Drafts your answer to an automatic check-in from what you actually did |
 | `/basecamp:meeting-prep <project> <topic>` | A one-page brief and agenda from the project's recent activity |
@@ -39,8 +39,8 @@ and every workflow that only reads leaves your Basecamp untouched.
 
 Projects and the people on them; to-dos and to-do lists; messages,
 comments and boosts; Card Tables, cards and steps; schedules; Docs & Files;
-Campfire chats and Pings; automatic check-ins; your assignments and Hey!
-menu; and search across your account.
+Campfire chats and Pings; automatic check-ins; your assignments and
+notifications; and search across your account.
 
 ## Your data
 

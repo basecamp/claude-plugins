@@ -1,8 +1,8 @@
 ---
-description: Triage your Basecamp Hey! menu — sort what needs a reply from what's just FYI, draft replies, and clear what's handled.
+description: Triage your Basecamp notifications (the Hey! menu in Basecamp 4) — sort what needs a reply from what's just FYI, draft replies, and clear what's handled.
 ---
 
-# Triage my Hey!
+# Triage my notifications
 
 1. `get_my_notifications`: unreads first. Unreads come back in one list,
    capped at 100; `page` pages only the read items, so it can't fetch more
