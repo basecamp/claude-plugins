@@ -1,7 +1,7 @@
 {
   "name": "basecamp",
   "displayName": "Basecamp",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Work in your Basecamp projects from Claude: catch up on a project, recap your week, triage your notifications, plan work into to-dos and cards, draft a check-in answer, and prep for a meeting, through Basecamp's own hosted connector.",
   "author": {
     "name": "37signals",
@@ -14,8 +14,8 @@
   "icon": "./assets/logo.png",
   "documentationUrl": "https://basecamp.com/ai",
   "supportUrl": "https://basecamp.com/support",
-  "privacyPolicyUrl": "https://37signals.com/policies/privacy",
-  "termsOfServiceUrl": "https://37signals.com/policies/terms",
+  "privacyPolicyUrl": "https://basecamp.com/privacy",
+  "termsOfServiceUrl": "https://basecamp.com/terms",
   "keywords": [
     "basecamp",
     "projects",
