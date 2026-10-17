@@ -53,6 +53,6 @@ things you remove go to the Basecamp trash, where
 they can be restored. Disconnect any time from the plugin's Connectors tab
 or from Connected apps in your Basecamp profile menu.
 
-- Privacy policy: https://37signals.com/policies/privacy
-- Terms: https://37signals.com/policies/terms
+- Privacy policy: https://basecamp.com/privacy
+- Terms: https://basecamp.com/terms
 - Support: https://basecamp.com/support
