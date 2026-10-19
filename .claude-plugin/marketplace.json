@@ -11,7 +11,8 @@
       "description": "Deprecated alias for basecamp-cli, kept so existing installs keep working. Install basecamp-cli instead, or run `basecamp setup` to switch.",
       "source": {
         "source": "url",
-        "url": "https://github.com/basecamp/basecamp-cli.git"
+        "url": "https://github.com/basecamp/basecamp-cli.git",
+        "sha": "d742884a950a1c1376e3b6cb00a3c6d97d5dfa25"
       },
       "category": "productivity"
     },
@@ -20,7 +21,8 @@
       "description": "CLI-based Basecamp for Claude Code and Codex, driven by the basecamp command. Create todos, track work, link code to projects.",
       "source": {
         "source": "url",
-        "url": "https://github.com/basecamp/basecamp-cli.git"
+        "url": "https://github.com/basecamp/basecamp-cli.git",
+        "sha": "d742884a950a1c1376e3b6cb00a3c6d97d5dfa25"
       },
       "category": "productivity"
     },
@@ -29,7 +31,8 @@
       "description": "HEY integration for Claude Code. Read email, manage todos, track time.",
       "source": {
         "source": "github",
-        "repo": "basecamp/hey-cli"
+        "repo": "basecamp/hey-cli",
+        "sha": "76ea03f5e52651521fef86edc24224ca4033d374"
       },
       "category": "productivity"
     },
@@ -38,7 +41,8 @@
       "description": "Fizzy integration for Claude Code. Manage boards, cards, track work, and link code to projects.",
       "source": {
         "source": "github",
-        "repo": "basecamp/fizzy-cli"
+        "repo": "basecamp/fizzy-cli",
+        "sha": "3834efe78385a70fa6e4a7f17a9def3ff69f9f23"
       },
       "category": "productivity"
     },

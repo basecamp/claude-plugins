@@ -30,6 +30,22 @@ once it's listed.
 | [hey](https://github.com/basecamp/hey-cli) | Read email, manage todos, track time. |
 | [fizzy](https://github.com/basecamp/fizzy-cli) | Manage boards and cards, track work, link code to projects. |
 
+### Pinned to releases
+
+`basecamp-cli`, `hey` and `fizzy` install from their CLI's latest release, not
+its default branch: a plugin's skills and hooks call the CLI you installed, and
+you install that from a release. `release-pins.json` names each one's repo, and
+its marketplace entry carries the `sha` of that release's commit.
+
+Every hour, the Pin releases workflow runs `bin/pin-releases`, which moves each
+pin to the newest release and never back, and opens a pull request when one
+moved. Merging it ships that release's plugin. `bin/check-marketplace` fails
+when a pinned plugin has no sha.
+
+Claude Code updates an installed plugin only when its `plugin.json` version
+changes, so a CLI's release has to stamp its version there for the pin to reach
+existing installs.
+
 ### `basecamp` is now `basecamp-cli`
 
 The CLI plugin used to be `basecamp@37signals`. It's now

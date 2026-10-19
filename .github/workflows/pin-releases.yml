@@ -1,0 +1,67 @@
+name: Pin releases
+
+# Moves each plugin in release-pins.json to its CLI's latest release
+# (bin/pin-releases) and opens a pull request when one moved. A pull request
+# opened with this workflow's token starts no other workflow, so Check doesn't
+# run on it: this runs bin/check-marketplace itself before pushing.
+
+on:
+  schedule:
+    - cron: '23 * * * *'
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: pin-releases
+  cancel-in-progress: false
+
+jobs:
+  pin:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+
+      - name: Pin each plugin to its CLI's latest release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: bin/pin-releases | tee "$RUNNER_TEMP/pins.txt"
+
+      - run: bin/check-marketplace
+
+      - name: Open or update the pull request
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          branch=pin-releases
+          if git diff --quiet; then
+            echo "Every plugin is at its latest release."
+            exit 0
+          fi
+
+          gh auth setup-git
+          # The same pins as the open pull request: nothing to push.
+          if git fetch --quiet origin "$branch" 2>/dev/null &&
+            git diff --quiet FETCH_HEAD -- .claude-plugin/marketplace.json; then
+            echo "The open pull request already has these pins."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch --quiet -c "$branch"
+          git commit --quiet -am "Pin plugins to their latest releases"
+          git push --quiet --force origin "$branch"
+
+          body=$(printf 'From `bin/pin-releases`:\n\n```\n%s\n```\n' "$(cat "$RUNNER_TEMP/pins.txt")")
+          if [ "$(gh pr view "$branch" --json state --jq .state 2>/dev/null)" = "OPEN" ]; then
+            gh pr edit "$branch" --body "$body"
+          else
+            gh pr create --head "$branch" --title "Pin plugins to their latest releases" --body "$body"
+          fi

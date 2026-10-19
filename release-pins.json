@@ -1,0 +1,6 @@
+{
+  "basecamp-cli": "basecamp/basecamp-cli",
+  "basecamp": "basecamp/basecamp-cli",
+  "hey": "basecamp/hey-cli",
+  "fizzy": "basecamp/fizzy-cli"
+}

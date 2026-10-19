@@ -4,6 +4,9 @@
 # 1. It parses, and every plugin name is unique.
 # 2. A plugin named "basecamp", if listed, has exactly the same source as
 #    "basecamp-cli": a deprecated alias for it.
+# 3. Every plugin in release-pins.json is listed, and its source carries the
+#    full sha of a commit (bin/pin-releases), so it installs a released CLI's
+#    plugin rather than the default branch.
 #
 # "basecamp@37signals" used to be the CLI plugin, now "basecamp-cli". During the
 # deprecation window the alias keeps existing installs loading, and
@@ -24,11 +27,13 @@ set -euo pipefail
 root="$(cd "$(dirname "$0")/.." && pwd)"
 marketplace="$root/.claude-plugin/marketplace.json"
 
-python3 - "$marketplace" <<'PY'
-import collections, json, sys
+python3 - "$marketplace" "$root/release-pins.json" <<'PY'
+import collections, json, re, sys
 
 with open(sys.argv[1]) as f:
     plugins = json.load(f)["plugins"]
+with open(sys.argv[2]) as f:
+    pins = json.load(f)
 names = [p["name"] for p in plugins]
 
 failed = False
@@ -46,6 +51,19 @@ if alias is not None:
             "error: the 'basecamp' entry must be a deprecated alias with exactly the same source as\n"
             "'basecamp-cli' until the deprecation window ends and a basecamp-cli release stops\n"
             "treating basecamp@37signals as the old CLI plugin. See bin/check-marketplace.",
+            file=sys.stderr,
+        )
+        failed = True
+
+for name, repo in pins.items():
+    plugin = by_name.get(name)
+    if plugin is None:
+        print(f"error: release-pins.json pins {name!r}, which marketplace.json doesn't list", file=sys.stderr)
+        failed = True
+    elif not re.fullmatch(r"[0-9a-f]{40}", str(plugin["source"].get("sha", ""))):
+        print(
+            f"error: {name!r} must be pinned to a release of {repo} by a full commit sha.\n"
+            "Run bin/pin-releases. See release-pins.json.",
             file=sys.stderr,
         )
         failed = True

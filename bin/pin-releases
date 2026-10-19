@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+# Pin each plugin in release-pins.json to the commit of its CLI's latest release.
+#
+#   bin/pin-releases    rewrite .claude-plugin/marketplace.json, print one line per plugin
+#
+# A CLI plugin's skills and hooks run the CLI its user installed, and users
+# install the CLI from releases. Installed from the default branch, a plugin can
+# call flags no released CLI has. So these entries carry the sha of the latest
+# release's commit, and the scheduled Pin releases workflow moves it forward.
+#
+# A pin never moves backwards: if the latest release is not ahead of the pinned
+# commit (a release deleted, a tag moved), the entry keeps its pin and the line
+# says why. Needs gh, authenticated for reading the CLIs' public repos.
+set -euo pipefail
+
+root="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$root"
+
+while read -r name repo; do
+  tag=$(gh api "repos/$repo/releases/latest" --jq .tag_name)
+  sha=$(gh api "repos/$repo/commits/$tag" --jq .sha)
+  pinned=$(jq -r --arg n "$name" '.plugins[] | select(.name == $n) | .source.sha // ""' .claude-plugin/marketplace.json)
+
+  if [[ "$pinned" == "$sha" ]]; then
+    echo "$name: $repo $tag ($sha), unchanged"
+    continue
+  fi
+
+  if [[ -n "$pinned" ]]; then
+    status=$(gh api "repos/$repo/compare/$pinned...$sha" --jq .status)
+    if [[ "$status" != "ahead" ]]; then
+      echo "$name: kept at $pinned: the latest release, $repo $tag ($sha), is not ahead of it (GitHub compares it as $status)"
+      continue
+    fi
+  fi
+
+  python3 - "$name" "$sha" <<'PY'
+import json, sys
+
+name, sha = sys.argv[1:]
+path = ".claude-plugin/marketplace.json"
+with open(path) as f:
+    marketplace = json.load(f)
+(plugin,) = [p for p in marketplace["plugins"] if p["name"] == name]
+plugin["source"]["sha"] = sha
+with open(path, "w") as f:
+    f.write(json.dumps(marketplace, indent=2, ensure_ascii=False) + "\n")
+PY
+  echo "$name: $repo $tag ($sha), was ${pinned:-the default branch}"
+done < <(jq -r 'to_entries[] | "\(.key) \(.value)"' release-pins.json)
