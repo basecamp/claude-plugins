@@ -11,7 +11,8 @@
       "description": "Deprecated alias for basecamp-cli, kept so existing installs keep working. Install basecamp-cli instead, or run `basecamp setup` to switch.",
       "source": {
         "source": "url",
-        "url": "https://github.com/basecamp/basecamp-cli.git"
+        "url": "https://github.com/basecamp/basecamp-cli.git",
+        "ref": "stable"
       },
       "category": "productivity"
     },
@@ -20,7 +21,8 @@
       "description": "CLI-based Basecamp for Claude Code and Codex, driven by the basecamp command. Create todos, track work, link code to projects.",
       "source": {
         "source": "url",
-        "url": "https://github.com/basecamp/basecamp-cli.git"
+        "url": "https://github.com/basecamp/basecamp-cli.git",
+        "ref": "stable"
       },
       "category": "productivity"
     },
