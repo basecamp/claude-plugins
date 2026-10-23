@@ -26,9 +26,17 @@ once it's listed.
 
 | Plugin | Description |
 |--------|-------------|
-| [basecamp-cli](https://github.com/basecamp/basecamp-cli/tree/main/.claude-plugin) | Basecamp through the `basecamp` command, for Claude Code and Codex. Todos, cards, messages, files, schedule, check-ins, timeline, recordings, templates, webhooks, subscriptions, lineup, and campfire; links code to projects. |
+| [basecamp-cli](https://github.com/basecamp/basecamp-cli/tree/stable/.claude-plugin) | Basecamp through the `basecamp` command, for Claude Code and Codex. Todos, cards, messages, files, schedule, check-ins, timeline, recordings, templates, webhooks, subscriptions, lineup, and campfire; links code to projects. |
 | [hey](https://github.com/basecamp/hey-cli) | Read email, manage todos, track time. |
 | [fizzy](https://github.com/basecamp/fizzy-cli) | Manage boards and cards, track work, link code to projects. |
+
+### basecamp-cli installs from its `stable` branch
+
+The `basecamp-cli` entry, and its `basecamp` alias, install from
+basecamp-cli's `stable` branch rather than `main`. The plugin's skills run the
+`basecamp` command, which people install from releases, so the skills have to
+match a release too. basecamp-cli's release workflow fast-forwards `stable` to
+each stable release once it has published, so a release changes nothing here.
 
 ### `basecamp` is now `basecamp-cli`
 
