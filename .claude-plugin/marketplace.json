@@ -83,6 +83,16 @@
         "path": "plugins/recap"
       },
       "category": "productivity"
+    },
+    {
+      "name": "herdr-summary",
+      "description": "Label each Claude Code session's herdr agent row with a short Haiku summary of what it's working on.",
+      "source": {
+        "source": "git-subdir",
+        "url": "basecamp/house-skills",
+        "path": "plugins/herdr-summary"
+      },
+      "category": "productivity"
     }
   ]
 }
